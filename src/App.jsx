@@ -15,11 +15,11 @@ import Cart from './components/Cart';
 import Profile from './components/Profile';
 import Messages from './components/Messages';
 import Orders from './components/Orders';
-
+import Auth from './components/Auth';
 // Category Banner Images
 import homeBanner from './assets/Image/backgrounds/image 98.png';
 import electronicsBanner from './assets/Image/backgrounds/image 106.png';
-
+import AddProduct from './components/AddProduct';
 // Home and Outdoor Images
 import itemH1 from './assets/Image/interior/1.png';
 import itemH2 from './assets/Image/interior/3.png';
@@ -65,6 +65,11 @@ function App() {
     { name: "Electric kettle", price: "240", image: itemE8 },
   ];
 
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  })
+
   const renderContent = () => {
     switch (currentPage) {
       case 'listing':
@@ -74,11 +79,15 @@ function App() {
       case 'cart':
         return <Cart setPage={setCurrentPage} />;
       case 'profile':
-        return <Profile setPage={setCurrentPage} />;
+        return <Profile setPage={setCurrentPage} user={user} />;
       case 'message':
+      case 'addproduct':
+        return <AddProduct setPage={setCurrentPage} user={user} />;
         return <Messages setPage={setCurrentPage} />;
       case 'orders':
         return <Orders setPage={setCurrentPage} />;
+      case 'auth':
+        return <Auth setPage={setCurrentPage} setUser={setUser} />;
       default:
         return (
           <div className="container">
@@ -112,7 +121,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header setPage={setCurrentPage} />
+      <Header setPage={setCurrentPage} user={user} setUser={setUser} />
 
       <main className="flex-grow pb-12">
         {renderContent()}

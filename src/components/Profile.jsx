@@ -1,15 +1,24 @@
 import React from 'react';
 
-const Profile = ({ setPage }) => {
+const Profile = ({ setPage, user }) => {
+    if (!user) {
+        setPage('auth');
+        return null;
+    }
+
+    const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+
     return (
         <div className="container py-8">
             <div className="bg-white border border-[#DEE2E7] rounded-lg p-8 shadow-sm max-w-2xl mx-auto">
                 <h1 className="text-2xl font-bold mb-6">Your Profile</h1>
                 <div className="flex items-center gap-6 mb-8 pb-8 border-b border-[#DEE2E7]">
-                    <div className="w-24 h-24 rounded-full bg-[#E3F0FF] flex items-center justify-center text-primary text-3xl font-bold">JD</div>
+                    <div className="w-24 h-24 rounded-full bg-[#E3F0FF] flex items-center justify-center text-primary text-3xl font-bold">
+                        {initials}
+                    </div>
                     <div>
-                        <h2 className="text-xl font-bold">Hafiza Sadia</h2>
-                        <p className="text-[#505050]">hafizasadia@gmail.com</p>
+                        <h2 className="text-xl font-bold">{user.name}</h2>
+                        <p className="text-[#505050]">{user.email}</p>
                     </div>
                 </div>
                 <div className="space-y-4">
@@ -24,6 +33,12 @@ const Profile = ({ setPage }) => {
                     <button className="w-full text-left p-4 border border-[#DEE2E7] rounded-lg hover:bg-shade transition-colors flex justify-between items-center">
                         <span>Payment Methods</span>
                         <span className="text-[#8B96A5]">→</span>
+                    </button>
+                    <button
+                        onClick={() => setPage('addproduct')}
+                        className="w-full text-left p-4 border border-blue-300 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors flex justify-between items-center text-blue-600 font-medium">
+                        <span>Add New Product</span>
+                        <span>→</span>
                     </button>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import { Search, User, MessageSquare, Heart, ShoppingCart, Menu, ChevronDown } f
 import logo from '../assets/Layout/Brand/logo-colored.png';
 import flagDE from '../assets/Layout1/Image/flags/DE@2x.png';
 
-const Header = ({ setPage }) => {
+const Header = ({ setPage, user, setUser }) => {
   return (
     <header className="bg-white border-b border-shade-border lg:sticky top-0 z-50 shadow-sm">
       {/* Top Header */}
@@ -33,7 +33,7 @@ const Header = ({ setPage }) => {
         <div className="flex items-center gap-6">
           <div className="flex flex-col items-center cursor-pointer text-secondary hover:text-primary transition-colors" onClick={() => setPage('profile')}>
             <User className="w-5 h-5 mb-1" />
-            <span className="text-xs">Profile</span>
+            <span className="text-xs">{user ? user.name.split(' ')[0] : 'Sign in'}</span>
           </div>
           <div className="flex flex-col items-center cursor-pointer text-secondary hover:text-primary transition-colors" onClick={() => setPage('message')}>
             <MessageSquare className="w-5 h-5 mb-1" />
@@ -47,6 +47,12 @@ const Header = ({ setPage }) => {
             <ShoppingCart className="w-5 h-5 mb-1" />
             <span className="text-xs">My cart</span>
           </div>
+          {user && (
+            <div className="flex flex-col items-center cursor-pointer text-secondary hover:text-red-500 transition-colors" onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('user'); setUser(null); setPage('home'); }}>
+              <User className="w-5 h-5 mb-1" />
+              <span className="text-xs">Logout</span>
+            </div>
+          )}
         </div>
       </div>
 
