@@ -42,7 +42,7 @@ import itemE8 from './assets/Image/tech/6.png';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
-
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const homeAndOutdoorItems = [
     { name: "Soft chairs", price: "19", image: itemH1 },
     { name: "Sofa & chair", price: "19", image: itemH2 },
@@ -68,9 +68,9 @@ function App() {
   const renderContent = () => {
     switch (currentPage) {
       case 'listing':
-        return <ProductListing setPage={setCurrentPage} />;
+        return <ProductListing setPage={setCurrentPage} setSelectedProduct={setSelectedProduct} />;
       case 'details':
-        return <ProductDetails setPage={setCurrentPage} />;
+        return <ProductDetails setPage={setCurrentPage} productId={selectedProduct} />;
       case 'cart':
         return <Cart setPage={setCurrentPage} />;
       case 'profile':

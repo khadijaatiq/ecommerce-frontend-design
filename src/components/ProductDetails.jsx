@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star, Heart, MessageSquare, ShoppingBag, ShieldCheck, Globe, ChevronRight, ChevronDown, Check } from 'lucide-react';
 
 // Main Product Image
@@ -9,10 +9,21 @@ import thumb3 from '../assets/Image/tech/6.png';
 import thumb4 from '../assets/Image/tech/8.png';
 import flagDE from '../assets/Layout1/Image/flags/DE@2x.png';
 
-const ProductDetails = ({ setPage }) => {
+const ProductDetails = ({ setPage, productId }) => {
    const [selectedThumb, setSelectedThumb] = useState(0);
-   const thumbnails = [mainImg, thumb1, thumb2, thumb3, thumb4];
+   const [product, setProduct] = useState(null);
+   const [loading, setLoading] = useState(true);
 
+   useEffect(() => {
+      if (!productId) return;
+      fetch(`http://localhost:3000/api/products/${productId}`)
+         .then(res => res.json())
+         .then(data => { setProduct(data); setLoading(false); })
+         .catch(err => { console.error('Failed to fetch product:', err); setLoading(false); });
+   }, [productId]);
+   const thumbnails = [mainImg, thumb1, thumb2, thumb3, thumb4];
+   if (loading) return <div className="p-10 text-center text-gray-500">Loading product...</div>;
+   if (!product) return <div className="p-10 text-center text-gray-500">Product not found.</div>;
    return (
       <div className="container py-4">
          {/* Breadcrumbs */}
