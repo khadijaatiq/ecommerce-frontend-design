@@ -24,7 +24,7 @@ const AddProduct = ({ setPage, user }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:3000/api/products', {
+            const res = await fetch('https://ecommerce-backend-design-seven.vercel.app/api/products', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

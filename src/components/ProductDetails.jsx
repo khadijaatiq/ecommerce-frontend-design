@@ -16,7 +16,7 @@ const ProductDetails = ({ setPage, productId }) => {
 
    useEffect(() => {
       if (!productId) return;
-      fetch(`http://localhost:3000/api/products/${productId}`)
+      fetch(`https://ecommerce-backend-design-seven.vercel.app/api/products/${productId}`)
          .then(res => res.json())
          .then(data => { setProduct(data); setLoading(false); })
          .catch(err => { console.error('Failed to fetch product:', err); setLoading(false); });

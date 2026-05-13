@@ -16,7 +16,7 @@ const ProductListing = ({ setPage, setSelectedProduct }) => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/products')
+    fetch('https://ecommerce-backend-design-seven.vercel.app/api/products')
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error('Failed to fetch:', err));
