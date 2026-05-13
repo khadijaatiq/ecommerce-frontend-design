@@ -14,8 +14,8 @@ const Auth = ({ setPage, setUser }) => {
         setLoading(true);
         setError('');
         const url = isLogin
-            ? 'http://localhost:3000/api/auth/login'
-            : 'http://localhost:3000/api/auth/signup';
+            ? 'https://ecommerce-backend-design-seven.vercel.app/api/auth/login'
+            : 'https://ecommerce-backend-design-seven.vercel.app/api/auth/signup';
 
         try {
             const res = await fetch(url, {
